@@ -1,7 +1,7 @@
 import CoreConcept from './CoreConcept.jsx'
 import { CORE_CONCEPTS } from '../data.js'
 
-function CoreConcepts () {
+function CoreConcepts() {
   return (
     <section id="core-concepts">
       <h2>Core Concepts</h2>
