@@ -5,28 +5,31 @@ import Result from "./components/Result";
 
 function App() {
   const [userInput, setUserInput] = useState({
-    initialInvestment: 0,
-    annualInvestment: 0,
-    expectedReturn: 0,
-    duration: 0,
+    initialInvestment: 10000,
+    annualInvestment: 1200,
+    expectedReturn: 6,
+    duration: 10
   });
 
   function handleChange(inputIndetifier, newValue) {
     setUserInput((prevUserInput) => {
       return {
         ...prevUserInput,
-        [inputIndetifier]: newValue,
+        [inputIndetifier]: +newValue, // + is a shortcut to convert a string to a number
       };
     });
   }
+
+  const inputIsValid = userInput.duration >= 1;
 
   return (
     <>
       <Header />
       <UserInput userInput={userInput} onChangeInput={handleChange}/>
-      <Result input={userInput}/>
+      {!inputIsValid && <p className="center">Please enter a valid duration grater than zero.</p>}
+      {inputIsValid && <Result input={userInput}/>}
     </>
   );
 }
 
-export default App
+export default App;
