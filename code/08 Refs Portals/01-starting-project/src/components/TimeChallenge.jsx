@@ -10,7 +10,7 @@ function TimeChallenge({ title, targetTime }) {
     function handleStart() {
         timer.current = setTimeout(() => {
             setTimerExpired(true);
-            dialog.current.showModal(); // showModal() is a native method
+            dialog.current.open();
         }, targetTime * 1000);
 
         setTimerStarted(true);
