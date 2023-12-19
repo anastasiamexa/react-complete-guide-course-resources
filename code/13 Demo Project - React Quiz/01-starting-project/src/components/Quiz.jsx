@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import QUESTIONS from "../questions.js";
 import quizCompleteImg from "../assets/quiz-complete.png";
+import QuestionTimer from "./QuestionTimer";
 
 function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
@@ -8,17 +9,23 @@ function Quiz() {
   const activeQuestionIndex = userAnswers.length;
   const quizIsFinished = activeQuestionIndex === QUESTIONS.length;
 
-  function handleSelectAnswer(selectedAnswer) {
+  const handleSelectAnswer = useCallback(function handleSelectAnswer(selectedAnswer) {
     setUserAnswers((prevUserAnswers) => {
       return [...prevUserAnswers, selectedAnswer];
     });
-  }
+  }, []);
+
+  // useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed.
+  const handleSkipQuestion = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer]);
+
 
   if (quizIsFinished) {
-    return <div id="summary">
+    return (
+      <div id="summary">
         <img src={quizCompleteImg} alt="Trophy icon" />
         <h2>Quiz Completed!</h2>
-    </div>;
+      </div>
+    );
   }
 
   // Shuffle the answers so they're not always in the same order
@@ -28,6 +35,11 @@ function Quiz() {
 
   return (
     <div id="quiz">
+      <QuestionTimer
+        key={activeQuestionIndex} // changing the key will force the component to re-render
+        timeout={10000}
+        onTimeout={handleSkipQuestion}
+      />
       <div id="question">
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">

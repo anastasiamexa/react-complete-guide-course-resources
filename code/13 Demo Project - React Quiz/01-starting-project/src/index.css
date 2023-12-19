@@ -97,7 +97,7 @@ header h1 {
   text-transform: uppercase;
 }
 
-#question progress {
+progress {
   width: 50%;
   height: 0.5rem;
   border-radius: 24px;
@@ -105,25 +105,25 @@ header h1 {
   margin: 0;
 }
 
-#question progress::-webkit-progress-bar {
+progress::-webkit-progress-bar {
   background: #6a558a;
   border-radius: 24px;
 }
 
-#question progress::-webkit-progress-value {
+progress::-webkit-progress-value {
   background: #9e5ef8;
   border-radius: 24px;
 }
 
-#question progress.answered {
+progress.answered {
   background: #f8e59c;
 }
 
-#question progress.answered::-webkit-progress-value {
+progress.answered::-webkit-progress-value {
   background: #f8e59c;
 }
 
-#question progress.answered::-webkit-progress-bar {
+progress.answered::-webkit-progress-bar {
   background: #6a558a;
 }
 
