@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import QUESTIONS from "../questions.js";
 import quizCompleteImg from "../assets/quiz-complete.png";
 import QuestionTimer from "./QuestionTimer";
+import Answers from "./Answers.jsx";
 
 function Quiz() {
   const [answerState, setAnswerState] = useState("");
@@ -48,11 +49,6 @@ function Quiz() {
     );
   }
 
-  // Shuffle the answers so they're not always in the same order
-  // (Correct answer will always be the first one in the array)
-  const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
-  shuffledAnswers.sort(() => Math.random() - 0.5);
-
   return (
     <div id="quiz">
       <QuestionTimer
@@ -62,31 +58,13 @@ function Quiz() {
       />
       <div id="question">
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
-        <ul id="answers">
-          {shuffledAnswers.map((answer) => {
-            const isSelected = userAnswers[userAnswers.length - 1] === answer;
-            let cssClass = "";
-
-            if (answerState === "answered" && isSelected) {
-                cssClass = "selected";
-            }
-
-            if ((answerState === "correct" || answerState === "wrong") && isSelected) {
-                cssClass = answerState;
-            }
-
-            return (
-              <li key={answer} className="answer">
-                <button
-                  onClick={() => handleSelectAnswer(answer)}
-                  className={cssClass}
-                >
-                  {answer}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <Answers
+          key={activeQuestionIndex} // changing the key will force the component to re-render
+          answers={QUESTIONS[activeQuestionIndex].answers}
+          selectedAnswer={userAnswers[userAnswers.length - 1]}
+          answerState={answerState}
+          onSelect={handleSelectAnswer}
+        />
       </div>
     </div>
   );
