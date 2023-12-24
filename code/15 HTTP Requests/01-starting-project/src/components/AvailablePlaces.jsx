@@ -14,10 +14,25 @@ export default function AvailablePlaces({ onSelectPlace }) {
     })
   }, []);
 
+  // Make GET request to fetch available places
+  // useEffect() is needed to avoid infinite loop
+  // using async/await
+  /*useEffect(() => {
+    async function fetchPlaces() {
+      const response = await fetch('http://localhost:3000/places');
+      const data = await response.json();
+      setAvailablePlaces(data.places);
+    }
+
+    fetchPlaces();
+  }, []);*/
+
   return (
     <Places
       title="Available Places"
       places={availablePlaces}
+      isLoading={availablePlaces.length === 0}
+      loadingText="Fetching places data..."
       fallbackText="No places available."
       onSelectPlace={onSelectPlace}
     />
