@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
-import Places from './Places.jsx';
-import Error from './Error.jsx';
+import { useState, useEffect } from "react";
+import Places from "./Places.jsx";
+import Error from "./Error.jsx";
+import { sortPlacesByDistance } from '../loc.js';
+import { fetchAvailablePlaces } from '../http.js';
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [isFetching, setIsFetching] = useState(false);
@@ -10,40 +12,34 @@ export default function AvailablePlaces({ onSelectPlace }) {
   // Make GET request to fetch available places
   // useEffect() is needed to avoid infinite loop
   useEffect(() => {
-    fetch('http://localhost:3000/places').then((response) => {
+    async function fetchPlaces() {
       setIsFetching(true);
       try {
-        if (!response.ok) {
-          throw new Error('Failed to fetch places.');
-        }
-        response.json().then((data) => {
-          setAvailablePlaces(data.places);
+        const places = await fetchAvailablePlaces();
+        navigator.geolocation.getCurrentPosition((position) => {
+          const sortedPlaces = sortPlacesByDistance(
+            places,
+            position.coords.latitude,
+            position.coords.longitude
+          );
+          setAvailablePlaces(sortedPlaces);
+          setIsFetching(false);
         });
       } catch (error) {
         setError({
-          message: error.message || 'Could not fetch places, please try again later.',
+          message:
+            error.message || "Could not fetch places, please try again later.",
         });
+        setIsFetching(false);
       }
-      setIsFetching(false);
-    })
+    }
+    
+    fetchPlaces();
   }, []);
 
   if (error) {
     return <Error title="An error occurred!" message={error.message} />;
   }
-
-  // Make GET request to fetch available places
-  // useEffect() is needed to avoid infinite loop
-  // using async/await
-  /*useEffect(() => {
-    async function fetchPlaces() {
-      const response = await fetch('http://localhost:3000/places');
-      const data = await response.json();
-      setAvailablePlaces(data.places);
-    }
-
-    fetchPlaces();
-  }, []);*/
 
   return (
     <Places
