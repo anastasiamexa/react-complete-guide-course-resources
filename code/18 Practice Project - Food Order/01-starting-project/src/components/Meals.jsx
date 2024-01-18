@@ -19,10 +19,6 @@ function Meals() {
     fetchMeals();
   }, []);
 
-  
-
-
-
   return (
     <ul id="meals">
       {loadedMeals.map((meal) => (<MealItem key={meal.id} meal={meal} />))}
