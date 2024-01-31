@@ -6,6 +6,7 @@ const Counter = () => {
   const dispatch = useDispatch();
   // useSelector is a hook that allows us to extract data from the Redux store state.
   const counter = useSelector(state => state.counter);
+  const show = useSelector(state => state.showCounter);
 
   // dispatch is a function that takes an action object as an argument.
   const incrementHandler = () => {
@@ -20,12 +21,14 @@ const Counter = () => {
     dispatch({ type: 'decrement' });
   };
 
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+    dispatch({ type: 'toggle' });
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {show && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={increaseHandler}>Increase by 5</button>
