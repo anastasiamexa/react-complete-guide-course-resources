@@ -6,8 +6,8 @@ const Counter = () => {
   // useDispatch is a hook that returns a reference to the dispatch function from the Redux store.
   const dispatch = useDispatch();
   // useSelector is a hook that allows us to extract data from the Redux store state.
-  const counter = useSelector(state => state.counter);
-  const show = useSelector(state => state.showCounter);
+  const counter = useSelector(state => state.counter.counter);
+  const show = useSelector(state => state.counter.showCounter);
 
   // dispatch is a function that takes an action object as an argument.
   const incrementHandler = () => {
