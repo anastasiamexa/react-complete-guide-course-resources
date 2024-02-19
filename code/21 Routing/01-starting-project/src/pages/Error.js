@@ -1,6 +1,6 @@
-import MainNavigation from "../components/MainNavigation";
+import MainNavigation from '../components/MainNavigation';
 
-export default function Error() {
+function ErrorPage() {
   return (
     <>
       <MainNavigation />
@@ -11,3 +11,5 @@ export default function Error() {
     </>
   );
 }
+
+export default ErrorPage;

@@ -1,7 +1,8 @@
-import { Outlet } from "react-router-dom";
-import MainNavigation from "../components/MainNavigation";
+import { Outlet } from 'react-router-dom';
 
-export default function Root() {
+import MainNavigation from '../components/MainNavigation';
+
+function RootLayout() {
   return (
     <>
       <MainNavigation />
@@ -11,3 +12,5 @@ export default function Root() {
     </>
   );
 }
+
+export default RootLayout;

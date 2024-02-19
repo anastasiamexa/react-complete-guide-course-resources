@@ -1,7 +1,8 @@
-import { NavLink } from "react-router-dom";
-import classes from "./MainNavigation.module.css";
+import { NavLink } from 'react-router-dom';
 
-export default function MainNavigation() {
+import classes from './MainNavigation.module.css';
+
+function MainNavigation() {
   return (
     <header className={classes.header}>
       <nav>
@@ -12,6 +13,9 @@ export default function MainNavigation() {
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }
+              // style={({ isActive }) => ({
+              //   textAlign: isActive ? 'center' : 'left',
+              // })}
               end
             >
               Home
@@ -32,3 +36,5 @@ export default function MainNavigation() {
     </header>
   );
 }
+
+export default MainNavigation;
