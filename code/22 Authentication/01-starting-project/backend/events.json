@@ -8,5 +8,11 @@
       "id": "2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"
     }
   ],
-  "users": []
+  "users": [
+    {
+      "email": "anastasia.mexa@yahoo.gr",
+      "password": "$2a$12$2.2zY5Zgy535TEnCmDqggeQRitvWmzIlZHBZSgmBwZMfLBTduQsf2",
+      "id": "a4a43fb1-f167-43ff-b382-92fe0b94db92"
+    }
+  ]
 }
