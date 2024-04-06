@@ -3,7 +3,6 @@
 // Function types, parameters
 
 // Primitives
-
 let age: number;
 
 age = 12;
@@ -17,15 +16,17 @@ let isInstructor: boolean;
 isInstructor = true;
 
 // More complex types
-
 let hobbies: string[];
 
 hobbies = ['Sports', 'Cooking'];
 
-let person: {
+// Type alias
+type Person = {
   name: string;
   age: number;
 };
+
+let person: Person;
 
 person = {
   name: 'Max',
@@ -36,7 +37,17 @@ person = {
 //   isEmployee: true
 // };
 
-let people: {
-  name: string;
-  age: number;
-}[];
+let people: Person[];
+
+// Type inference and union types
+let course: string | number = 'React - The Complete Guide';
+course = 12341;
+
+// Functions & types
+function add(a: number, b: number) {
+  return a + b;
+}
+
+function printOutput(value: any) {
+  console.log(value);
+}
