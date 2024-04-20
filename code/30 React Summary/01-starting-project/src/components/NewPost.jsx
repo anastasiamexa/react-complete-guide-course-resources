@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classes from './NewPost.module.css';
 
-export default function NewPost({onBodyChange, onAuthorChange, onCancel, onAddPost}) {
+export default function NewPost({onCancel, onAddPost}) {
   const [enteredBody, setEnteredBody] = useState("");
   const [enteredAuthor, setEnteredAuthor] = useState("");
 
@@ -16,8 +16,8 @@ export default function NewPost({onBodyChange, onAuthorChange, onCancel, onAddPo
   function submitHandler(event) {
     event.preventDefault();
     const postData = {
-      name: enteredAuthor,
-      text: enteredBody
+      author: enteredAuthor,
+      body: enteredBody
     };
     onAddPost(postData);
     onCancel();

@@ -2,12 +2,29 @@ import Post from "./Post";
 import NewPost from "./NewPost";
 import Modal from "./Modal";
 import classes from "./PostsList.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function PostsList({ isPosting, onStopPosting }) {
   const [posts, setPosts] = useState([]);
 
+  useEffect(() => {
+    async function fetchPosts() {
+      const response = await fetch('http://localhost:8080/posts')
+      const resData = await response.json();
+      setPosts(resData.posts);
+    }
+
+    fetchPosts();
+  }, []);
+
   function addPostHandler(postData) {
+    fetch("http://localhost:8080/posts", {
+      method: "POST",
+      body: JSON.stringify(postData),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
     setPosts((prevPosts) => {
       return [postData, ...prevPosts];
     });
@@ -22,7 +39,7 @@ export default function PostsList({ isPosting, onStopPosting }) {
       )}
       <ul className={classes.posts}>
         {posts.map((post) => (
-          <Post name={post.name} text={post.text} key={Math.random()} />
+          <Post name={post.author} text={post.body} key={Math.random()} />
         ))}
       </ul>
       {posts.length === 0 && (
